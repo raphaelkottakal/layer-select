@@ -48,44 +48,43 @@ class LayerSelect extends Component {
   renderMain() {
     const { item1, item2, item3 } = this.state;
     const main = find(this.props.search, { item1, item2, item3 });
-    // console.log('find', main);
     return (
-		<a style={{ display: 'block', width: '100%', height: 'auto' }} href={main.link} target="_blank">
-			<img style={{ display: 'block', width: '100%', height: 'auto' }} src={main.image} alt="main" />
-		</a>
+    <a style={{ display: 'block', width: '100%', height: 'auto' }} href={main.link} target="_blank">
+      <img style={{ display: 'block', width: '100%', height: 'auto' }} src={main.image} alt="main" />
+    </a>
     );
   }
 
   renderItems(items,num) {
-  	const css = {
-  		wrapper: {
-  			display: 'flex',
-  			justifyContent: 'center',
-  			alignItems: 'center'
-  		},
-  		notSelected: {
-  			width: '75%',
-  			height: 'auto',
-  			paddingTop: 4,
-  			paddingBottom: 4
-  		}
-  	}
+    const css = {
+      wrapper: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
+      notSelected: {
+        width: '75%',
+        height: 'auto',
+        paddingTop: 4,
+        paddingBottom: 4
+      }
+    }
     // console.log(items);
     return items.map((val,i) => {
-    	if (i === this.state['item' + num]) {
+      if (i === this.state['item' + num]) {
 
-	      return (
-	        <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
-	          <img src={val.image} alt="item" />
-	        </div>
-	      );
-    	} else {
-		  return (
-	        <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
-	          <img style={css.notSelected} src={val.image} alt="item" />
-	        </div>
-	      );
-    	}
+        return (
+          <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
+            <img src={val.image} alt="item" />
+          </div>
+        );
+      } else {
+      return (
+          <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
+            <img style={css.notSelected} src={val.image} alt="item" />
+          </div>
+        );
+      }
     });
   }
 
@@ -93,7 +92,7 @@ class LayerSelect extends Component {
 
     const css = {
       itemsLeft: {
-      	position: 'absolute',
+        position: 'absolute',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -101,7 +100,7 @@ class LayerSelect extends Component {
         left: 0
       },
       itemsRight: {
-      	position: 'absolute',
+        position: 'absolute',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -109,11 +108,11 @@ class LayerSelect extends Component {
         right: 0
       },
       itemsBottom: {
-      	position: 'absolute',
-      	bottom: 0,
-      	left: 0,
-      	width: '100%',
-      	height: 'auto',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        height: 'auto',
         display: 'flex',
         justifyContent: 'center'
       },
@@ -121,23 +120,37 @@ class LayerSelect extends Component {
         display: 'flex',
         position: 'relative',
         lineHeight: 0
+      },
+      overlay: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'hsla(0,0%,0%,.75)'
       }
     }
 
     return (
       <div>
-          <h2>Layer Select</h2>
           <div style={css.wrapper}>
-			<div style={css.itemsLeft}>
-				{this.renderItems(this.props.items1,1)}
-			</div>
-				{this.renderMain()}
-			<div style={css.itemsRight}>
-				{this.renderItems(this.props.items2,2)}
-			</div>
-			<div style={css.itemsBottom}>
-				{this.renderItems(this.props.items3,3)}
-			</div>
+            <div style={css.itemsLeft}>
+              {this.renderItems(this.props.items1,1)}
+            </div>
+              {this.renderMain()}
+            <div style={css.itemsRight}>
+              {this.renderItems(this.props.items2,2)}
+            </div>
+            <div style={css.itemsBottom}>
+              {this.renderItems(this.props.items3,3)}
+            </div>
+            {(!this.state.loaded) ? 
+              <div style={css.overlay}>
+                <img style={{width: 64, height:'auto'}} src="http://assets.myntassets.com/v1466161200/radium/loading.gif" alt="loading" />
+              </div>:
+              ''
+            }
           </div>
       </div>
     );
