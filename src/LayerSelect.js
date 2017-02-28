@@ -57,13 +57,35 @@ class LayerSelect extends Component {
   }
 
   renderItems(items,num) {
+  	const css = {
+  		wrapper: {
+  			display: 'flex',
+  			justifyContent: 'center',
+  			alignItems: 'center'
+  		},
+  		notSelected: {
+  			width: '75%',
+  			height: 'auto',
+  			paddingTop: 4,
+  			paddingBottom: 4
+  		}
+  	}
     // console.log(items);
     return items.map((val,i) => {
-      return (
-        <div onClick={this.handelItemClick.bind(this,i,num)} key={i}>
-          <img src={val.image} alt="item" />
-        </div>
-      );
+    	if (i === this.state['item' + num]) {
+
+	      return (
+	        <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
+	          <img src={val.image} alt="item" />
+	        </div>
+	      );
+    	} else {
+		  return (
+	        <div style={css.wrapper} onClick={this.handelItemClick.bind(this,i,num)} key={i}>
+	          <img style={css.notSelected} src={val.image} alt="item" />
+	        </div>
+	      );
+    	}
     });
   }
 
